@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
 import {
   FaReact,
   FaNodeJs,
@@ -18,15 +17,8 @@ import {
   SiCplusplus,
 } from "react-icons/si";
 
-import {
-  FaLinkedinIn,
-  FaMoon,
-  FaSun,
-} from "react-icons/fa";
-
+import { FaLinkedinIn, FaMoon, FaSun } from "react-icons/fa";
 import { SiLeetcode, SiGmail } from "react-icons/si";
-
-// ─── DATA ────────────────────────────────────────────────────────────────────
 
 const WORK = [
   { name: "Google", role: "Software Engineer Intern", period: "May 2024 - Aug 2024", color: "#4285F4", initials: "G" },
@@ -53,7 +45,6 @@ const SKILLS = [
   { name: "Jenkins", icon: SiJenkins, color: "#D24939" },
 ];
 
-// Version-2 project structure: index, desc[], accent, thumbnail, preview, links
 const PROJECTS = [
   {
     title: "Academic Management",
@@ -67,6 +58,7 @@ const PROJECTS = [
     accent: "#6366F1",
     preview: "https://res.cloudinary.com/diof7kckk/video/upload/q_auto/f_auto/v1782091253/Academic_Management_System_1_trfsa7.mp4",
     thumbnail: "https://res.cloudinary.com/diof7kckk/image/upload/q_auto/f_auto/v1782125486/thubmnail-1_icmnp8.png",
+
     links: {
       website: "https://your-live-site.com",
       source: "https://github.com/yourrepo",
@@ -204,14 +196,10 @@ function SkillBadge({ skill }) {
 function LogoCircle({ color, initials }) {
   return (
     <div style={{
-      width: 42,
-      height: 42,
-      borderRadius: "50%",
+      width: 42, height: 42, borderRadius: "50%",
       border: "1px solid #E5E7EB",
       background: color + "15",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      display: "flex", alignItems: "center", justifyContent: "center",
       flexShrink: 0,
     }}>
       <span style={{ fontSize: 11, fontWeight: 800, color, letterSpacing: "-0.02em" }}>{initials}</span>
@@ -223,11 +211,8 @@ function TimelineRow({ item, delay = 0 }) {
   return (
     <Reveal delay={delay}>
       <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "14px 0",
-        borderBottom: "1px solid #F3F4F6",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "14px 0", borderBottom: "1px solid #F3F4F6",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <LogoCircle color={item.color} initials={item.initials} />
@@ -249,8 +234,7 @@ function HackathonRow({ h, i, isLast }) {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 42 }}>
           <div style={{
             width: 42, height: 42, borderRadius: "50%",
-            border: "1.5px solid #E5E7EB",
-            background: "#fff",
+            border: "1.5px solid #E5E7EB", background: "#fff",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 16, zIndex: 1,
           }}>
@@ -280,7 +264,7 @@ function HackathonRow({ h, i, isLast }) {
   );
 }
 
-// ─── VIDEO MODAL (from Version-2) ────────────────────────────────────────────
+// ─── VIDEO MODAL ─────────────────────────────────────────────────────────────
 
 function VideoModal({ src, onClose }) {
   useEffect(() => {
@@ -293,33 +277,25 @@ function VideoModal({ src, onClose }) {
     };
   }, [onClose]);
 
-  return createPortal(
+  return (
     <div
-  onClick={onClose}
-  style={{
-    position: "fixed",
-    inset: 0,
-    zIndex: 999999,
-    background: "rgba(0,0,0,0.88)",
-
-    display: "grid",
-    placeItems: "center",
-
-    width: "100vw",
-    height: "100vh",
-  }}
->
-  <div
-  onClick={(e) => e.stopPropagation()}
-  style={{
-    width: "90vw",
-    maxWidth: "900px",
-    background: "#000",
-    borderRadius: 14,
-    overflow: "hidden",
-    animation: "videoPop .25s ease",
-  }}
->
+      onClick={onClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 9999,
+        background: "rgba(0,0,0,0.85)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          width: "min(880px, 92vw)",
+          background: "#000",
+          borderRadius: 14,
+          overflow: "hidden",
+        }}
+      >
         <video
           src={src}
           autoPlay
@@ -327,34 +303,24 @@ function VideoModal({ src, onClose }) {
           style={{ width: "100%", display: "block", maxHeight: "70vh", objectFit: "contain" }}
         />
         <button
-        onClick={onClose}
-        style={{
-          position: "absolute",
-          top: 12,
-          right: 12,
-          width: 40,
-          height: 40,
-          borderRadius: "50%",
-          background: "rgba(0,0,0,0.75)",
-          border: "2px solid white",
-          cursor: "pointer",
-          color: "#ffffff",
-          fontSize: 22,
-          fontWeight: "bold",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 10000,
-        }}
-      >
-        ✕
-      </button>
+          onClick={onClose}
+          style={{
+            position: "absolute", top: 12, right: 12,
+            width: 34, height: 34, borderRadius: "50%",
+            background: "rgba(255,255,255,0.15)", border: "none",
+            cursor: "pointer", color: "#fff", fontSize: 18,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            lineHeight: 1,
+          }}
+        >
+          ✕
+        </button>
       </div>
-    </div> ,  document.body
+    </div>
   );
 }
 
-// ─── PROJECT CARD (from Version-2, adapted for Version-1 narrow width) ───────
+// ─── PROJECT CARD (new horizontal layout) ────────────────────────────────────
 
 function ProjectCard({ p, delay = 0 }) {
   const [modal, setModal] = useState(false);
@@ -362,18 +328,156 @@ function ProjectCard({ p, delay = 0 }) {
   return (
     <Reveal delay={delay}>
       <div
+         className="project-card"
         style={{
           background: "#fff",
           border: "1px solid #E5E7EB",
           borderRadius: 18,
           overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
+          display: "grid",
           marginBottom: 28,
           boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
         }}
       >
-        {/* TOP — browser preview / thumbnail */}
+        {/* LEFT */}
+        <div
+          style={{
+            padding: window.innerWidth < 768 ? "1.3rem" : "2.2rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            borderRight: "1px solid #F3F4F6",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.08em",
+                color: "#9CA3AF",
+                marginBottom: 14,
+              }}
+            >
+              {p.index} / 0{PROJECTS.length}
+            </p>
+
+            <div
+              style={{
+                width: 36,
+                height: 4,
+                borderRadius: 999,
+                background: p.accent,
+                marginBottom: 18,
+              }}
+            />
+
+            <h3
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "#111827",
+                marginBottom: 16,
+              }}
+            >
+              {p.title}
+            </h3>
+
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                marginBottom: 24,
+              }}
+            >
+              {p.desc.map((d, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: 8,
+                    fontSize: 14,
+                    color: "#6B7280",
+                    lineHeight: 1.8,
+                  }}
+                >
+                  <span style={{ color: "#D1D5DB" }}>—</span>
+                  {d}
+                </li>
+              ))}
+            </ul>
+
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+                marginBottom: 24,
+              }}
+            >
+              {p.tech.map((t) => (
+                <span
+                  key={t}
+                  style={{
+                    fontSize: 12,
+                    padding: "5px 12px",
+                    borderRadius: 999,
+                    border: "1px solid #E5E7EB",
+                    color: "#6B7280",
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: 10 }}>
+            <a
+              href={p.links.website}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "10px 18px",
+                background: "#111827",
+                color: "#fff",
+                borderRadius: 10,
+                textDecoration: "none",
+                fontSize: 13,
+                fontWeight: 600,
+              }}
+            >
+              ↗ Live Demo
+            </a>
+
+            <a
+              href={p.links.source}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "10px 18px",
+                border: "1px solid #E5E7EB",
+                color: "#374151",
+                borderRadius: 10,
+                textDecoration: "none",
+                fontSize: 13,
+                fontWeight: 600,
+              }}
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        {/* RIGHT */}
         <div
           onClick={() => setModal(true)}
           style={{
@@ -383,152 +487,131 @@ function ProjectCard({ p, delay = 0 }) {
             position: "relative",
           }}
         >
-          {/* Browser chrome header */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ef4444" }} />
-            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#f59e0b" }} />
-            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e" }} />
-            <div style={{
-              flex: 1,
-              height: 26,
-              borderRadius: 999,
-              background: "#1F2937",
-              marginLeft: 10,
+          {/* Browser Header */}
+          <div
+            style={{
               display: "flex",
               alignItems: "center",
-              paddingLeft: 12,
-              color: "#9CA3AF",
-              fontSize: 11,
-            }}>
+              gap: 8,
+              marginBottom: 14,
+            }}
+          >
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                background: "#ef4444",
+              }}
+            />
+
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                background: "#f59e0b",
+              }}
+            />
+
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                background: "#22c55e",
+              }}
+            />
+
+            <div
+              style={{
+                flex: 1,
+                height: 26,
+                borderRadius: 999,
+                background: "#1F2937",
+                marginLeft: 10,
+                display: "flex",
+                alignItems: "center",
+                paddingLeft: 12,
+                color: "#9CA3AF",
+                fontSize: 11,
+              }}
+            >
               localhost:3000
             </div>
           </div>
 
-          {/* Thumbnail + Play overlay */}
-          <div style={{ position: "relative" }}>
-            <img
-            src={p.thumbnail}
-            alt={p.title}
+          {/* Screenshot */}
+          <div
             style={{
-              width: "100%",
-              aspectRatio: "16 / 9",
-              objectFit: "contain",
-              background: "#fff",
-              borderRadius: 12,
-              display: "block",
+              position: "relative",
             }}
-          />
+          >
+            <img
+              src={p.thumbnail}
+              alt={p.title}
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: 420,
+                objectFit: "contain",
+                background: "#fff",
+                borderRadius: 12,
+                display: "block",
+              }}
+            />
 
-            {/* Play button */}
-            <div style={{
-              position: "absolute", inset: 0,
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <div style={{
-                width: 64, height: 64,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.95)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 24,
-                boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-              }}>
+            {/* Play Button */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: window.innerWidth < 768 ? 54 : 72,
+                  height: window.innerWidth < 768 ? 54 : 72,
+                  fontSize: window.innerWidth < 768 ? 20 : 28,
+                  borderRadius: "50%",
+                  background: "rgba(255,255,255,0.95)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+                }}
+              >
                 ▶
               </div>
             </div>
 
-            {/* Watch demo badge */}
-            <span style={{
-              position: "absolute", bottom: 14, left: 14,
-              background: "rgba(0,0,0,0.65)",
-              color: "#fff",
-              padding: "6px 12px",
-              borderRadius: 999,
-              fontSize: 11,
-              letterSpacing: "0.04em",
-            }}>
+            <span
+              style={{
+                position: "absolute",
+                bottom: 14,
+                left: 14,
+                background: "rgba(0,0,0,0.65)",
+                color: "#fff",
+                padding: "6px 12px",
+                borderRadius: 999,
+                fontSize: 11,
+                letterSpacing: "0.04em",
+              }}
+            >
               WATCH DEMO
             </span>
           </div>
         </div>
-
-        {/* BOTTOM — content */}
-        <div style={{ padding: "22px 22px 24px", display: "flex", flexDirection: "column", gap: 0 }}>
-          {/* Index + accent bar */}
-          <p style={{ fontSize: 11, letterSpacing: "0.08em", color: "#9CA3AF", marginBottom: 12 }}>
-            {p.index} / 0{PROJECTS.length}
-          </p>
-          <div style={{ width: 36, height: 4, borderRadius: 999, background: p.accent, marginBottom: 16 }} />
-
-          {/* Title */}
-          <h3 style={{ fontSize: 22, fontWeight: 800, color: "#111827", marginBottom: 14 }}>
-            {p.title}
-          </h3>
-
-          {/* Description bullets */}
-          <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
-            {p.desc.map((d, i) => (
-              <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "#6B7280", lineHeight: 1.8 }}>
-                <span style={{ color: "#D1D5DB" }}>—</span>
-                {d}
-              </li>
-            ))}
-          </ul>
-
-          {/* Tech badges */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 22 }}>
-            {p.tech.map((t) => (
-              <span key={t} style={{
-                fontSize: 12,
-                padding: "5px 12px",
-                borderRadius: 999,
-                border: "1px solid #E5E7EB",
-                color: "#6B7280",
-              }}>
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Action buttons */}
-          {/**
-          <div style={{ display: "flex", gap: 10 }}>
-            <a
-              href={p.links.website}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                padding: "10px 18px",
-                background: "#111827", color: "#fff",
-                borderRadius: 10,
-                textDecoration: "none",
-                fontSize: 13, fontWeight: 600,
-              }}
-            >
-              ↗ Live Demo
-            </a>
-            <a
-              href={p.links.source}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                padding: "10px 18px",
-                border: "1px solid #E5E7EB", color: "#374151",
-                borderRadius: 10,
-                textDecoration: "none",
-                fontSize: 13, fontWeight: 600,
-              }}
-            >
-              GitHub
-            </a>
-          </div>
-           */}
-        </div>
       </div>
 
       {modal && (
-        <VideoModal src={p.preview} onClose={() => setModal(false)} />
+        <VideoModal
+          src={p.preview}
+          onClose={() => setModal(false)}
+        />
       )}
     </Reveal>
   );
@@ -549,8 +632,7 @@ function FloatingDock({ darkMode, setDarkMode }) {
     <div style={{
       position: "fixed", bottom: 24, left: "50%",
       transform: "translateX(-50%)", zIndex: 999,
-      display: "flex", gap: 10,
-      padding: "10px 16px",
+      display: "flex", gap: 10, flexWrap: "wrap", padding: "10px 14px",
       borderRadius: 999,
       background: "rgba(255,255,255,.85)",
       backdropFilter: "blur(16px)",
@@ -588,9 +670,7 @@ function FloatingDock({ darkMode, setDarkMode }) {
           </a>
         );
       })}
-
       <div style={{ width: 1, background: "#E5E7EB", margin: "0 4px" }} />
-
       <button
         onClick={() => setDarkMode((d) => !d)}
         style={{
@@ -638,8 +718,7 @@ export default function Portfolio() {
         backgroundSize: "28px 28px",
       }} />
 
-      {/* Version-1 narrow container: maxWidth 680 */}
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 680, margin: "0 auto", padding: "72px 24px 120px" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1100, margin: "0 auto", padding: "72px 24px 120px" }}>
 
         {/* ─── HERO ─── */}
         <section id="hero" style={{ marginBottom: 25 }}>
@@ -680,16 +759,6 @@ export default function Portfolio() {
           </Reveal>
         </section>
 
-        {/* ─── WORK (commented out as in Version-1) ─── */}
-        {/*
-          <section id="work" style={{ marginBottom: 56 }}>
-            <Reveal>
-              <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 4px", color: fg }}>Work Experience</h2>
-            </Reveal>
-            {WORK.map((w, i) => <TimelineRow key={w.name} item={w} delay={i * 0.07} />)}
-          </section>
-        */}
-
         {/* ─── EDUCATION ─── */}
         <section style={{ marginBottom: 56 }}>
           <Reveal>
@@ -712,9 +781,9 @@ export default function Portfolio() {
           </Reveal>
         </section>
 
-        {/* ─── PROJECTS (Version-2 cards inside Version-1 layout) ─── */}
+        {/* ─── PROJECTS ─── */}
         <section id="projects" style={{ marginBottom: 80 }}>
-          {/* Header row — same as Version-1 */}
+          {/* header row */}
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
             <div style={{ flex: 1, height: "0.5px", background: "linear-gradient(to right, transparent, #D1D5DB)" }} />
             <span style={{
@@ -736,7 +805,7 @@ export default function Portfolio() {
             </p>
           </Reveal>
 
-          {/* Stacked full-width Version-2 cards */}
+          {/* stacked full-width cards */}
           <div>
             {PROJECTS.map((p, i) => (
               <ProjectCard key={p.title} p={p} delay={i * 0.07} />
@@ -744,24 +813,14 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ─── HACKATHONS (commented out as in Version-1) ─── */}
-        {/*
-          <section id="hackathons" style={{ marginBottom: 80 }}>
-            ...
-          </section>
-        */}
-
         {/* ─── CONTACT ─── */}
         <section id="contact">
           <SectionPill label="Contact" />
           <Reveal>
             <div style={{
-              border: "1px solid #E5E7EB",
-              borderRadius: 20,
-              padding: "52px 32px",
-              textAlign: "center",
-              position: "relative",
-              overflow: "hidden",
+              border: "1px solid #E5E7EB", borderRadius: 20,
+              padding: "52px 32px", textAlign: "center",
+              position: "relative", overflow: "hidden",
               backgroundImage: `radial-gradient(${darkMode ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.03)"} 1px, transparent 1px)`,
               backgroundSize: "18px 18px",
             }}>
@@ -818,18 +877,16 @@ export default function Portfolio() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { overflow-x: hidden; }
-        @keyframes videoPop {
-  from {
-    opacity: 0;
-    transform: scale(.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+              .project-card {
+        grid-template-columns: 1fr 1.15fr;
+      }
+
+      @media (max-width: 768px) {
+        .project-card {
+          grid-template-columns: 1fr !important;
+        }
 }
-      `
-      }</style>
+      `}</style>
     </div>
   );
 }
